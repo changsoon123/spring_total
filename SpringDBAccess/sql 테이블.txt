@@ -1,0 +1,27 @@
+
+# 해당 계정이 어떤 데이터베이스를 사용할 지 명시하는 문장
+# 스키마 항목에서 우클릭후 set as default schema로 가능
+use springscoresscores;
+
+#bigint = long 대략 9경, 작은건 tinyint = byte, smallint도 가능
+#VARCHAR 65500바이트 
+create table scores(
+	stu_id int primary key AUTO_INCREMENT,
+    stu_name VARCHAR(30) NOT NULL,
+    kor INT DEFAULT 0,
+    eng INT DEFAULT 0,
+    math INT default 0,
+    total int DEFAULT 0,
+    average DECIMAL(5, 2)
+);
+
+create table jdbc_board(
+	board_no INT PRIMARY KEY AUTO_INCREMENT,
+    writer VARCHAR(30) NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    content VARCHAR(2000),
+    reg_date DATETIME DEFAULT current_timestamp
+);
+
+# NOW() 로도 가능
+DROP TABLE scores;
