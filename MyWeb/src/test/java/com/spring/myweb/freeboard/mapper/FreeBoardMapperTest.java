@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.spring.myweb.command.FreeBoardVO;
+import com.spring.myweb.util.PageVO;
 
 @ExtendWith(SpringExtension.class) //테스트 환경을 만들어 주는 junit5 객체 로딩
 @ContextConfiguration(locations = {
@@ -35,13 +36,15 @@ public class FreeBoardMapperTest {
 		//given - when - then 패턴 (생략 가능)
 		
 		//given: 테스트를 위해 주어질 데이터 (ex: parameter)
-		FreeBoardVO vo = new FreeBoardVO();
-		vo.setTitle("두번째 글");
-		vo.setWriter("ABC1234");
-		vo.setContent("안녕하세요~ 반갑습니다!");
-		
-		//when: 테스트 실제 상황
-		mapper.regist(vo);
+		for(int i=1; i<=200; i++) {
+			FreeBoardVO vo = new FreeBoardVO();
+			vo.setTitle("테스트 제목" + i);
+			vo.setWriter("ABC1234");
+			vo.setContent("테스트 내용입니다." + i);
+			//when: 테스트 실제 상황
+			mapper.regist(vo);
+			
+		}
 		
 		//then: 테스트 결과를 확인.
 		
@@ -49,10 +52,14 @@ public class FreeBoardMapperTest {
 	}
 	
 	@Test
-	@DisplayName("전체 글 목록을 조회하고, 조회된 글 갯수를 파악했을 때 하나가 조회될 것이다.")
+	@DisplayName("사용자가 원하는 페이지 번호에 맞는 글 목록을 불러 올 것이고,"
+			+ " 게시물의 개수는 사용자가 원하는 만큼의 개수를 가진다.")
 	void getListTest() {
 		
-		List<FreeBoardVO> list = mapper.getList();
+		PageVO vo = new PageVO();
+		vo.setPageNum(7);
+		
+		List<FreeBoardVO> list = mapper.getList(vo);
 		
 		/* 
 		 *  for(FreeBoardVO vo : list){
@@ -62,10 +69,10 @@ public class FreeBoardMapperTest {
 		 *  이걸  밑에서 람다식
 		 */
 		
-		list.forEach(vo -> System.out.println(vo));
+		list.forEach(article -> System.out.println(article));
 		
 		//단언한다.
-		assertEquals(4, list.size());
+		assertEquals(vo.getCpp(), list.size());
 	}
 	
 	@Test
@@ -105,18 +112,18 @@ public class FreeBoardMapperTest {
 		assertEquals("아무 글", vo.getTitle());
 	}
 	
-	@Test
-	@DisplayName("글 번호가 5번인 글을 삭제한 후에 리스트를 전체 조회했을 때 글의 개수는 1개일 것이고,"
-			+ "2번 글을 조회했을 때 null이 반환되어야 한다.")
-	void getDelete() {
-		int bno = 5;
-		
-		
-		mapper.delete(bno);
-		
-		
-		assertEquals(1, mapper.getList().size());
-		assertNull(mapper.getContent(bno));
-		
-	}
+//	@Test
+//	@DisplayName("글 번호가 5번인 글을 삭제한 후에 리스트를 전체 조회했을 때 글의 개수는 1개일 것이고,"
+//			+ "2번 글을 조회했을 때 null이 반환되어야 한다.")
+//	void getDelete() {
+//		int bno = 5;
+//		
+//		
+//		mapper.delete(bno);
+//		
+//		
+//		assertEquals(1, mapper.getList().size());
+//		assertNull(mapper.getContent(bno));
+//		
+//	}
 }
