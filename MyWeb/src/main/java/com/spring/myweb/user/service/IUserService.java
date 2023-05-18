@@ -1,4 +1,4 @@
-package com.spring.myweb.user.mapper;
+package com.spring.myweb.user.service;
 
 import java.util.Map;
 
@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.spring.myweb.command.UserVO;
 
-public interface IUserMapper {
+public interface IUserService {
 	
 	//아이디 중복 확인
 	int idCheck(String id);
@@ -25,8 +25,8 @@ public interface IUserMapper {
 	 * 
 	 * 중 하나를 상황에 맞게 적절하게 선택하면 된다.
 	 */
-//	UserVO login(Map<String, String> map);
-	UserVO login(@Param("id") String id,@Param("pw") String pw);
+	UserVO login(String id, String pw);
+//	UserVO login(@Param("id") String id,@Param("pw") String pw);
 	
 	//회원 정보 얻어오기
 	UserVO getInfo(String id);
