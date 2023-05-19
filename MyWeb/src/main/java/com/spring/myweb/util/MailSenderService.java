@@ -32,6 +32,7 @@ public class MailSenderService {
 	
 	//회원 가입 시 사용할 이메일 양식
 	public String joinEmail(String email) {
+		authNum = makeRandomNumber();
 		
 		String setFrom = "sool0458@naver.com"; //email-config에 설정한 발신용 이메일 주소 입력.
 		String toMail = email; //수신받을 이메일(가입하고자 하는 사람의 이메일)
