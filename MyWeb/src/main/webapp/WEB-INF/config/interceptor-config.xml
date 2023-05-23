@@ -23,7 +23,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/freeBoard/regist" />
 			<mvc:mapping path="/user/userMypage"/>
-			<mvc:mapping path="/freeBoard/content/**"/>
+			<!-- <mvc:mapping path="/freeBoard/content/**"/> -->
 			<ref bean="userAuth" />
 		</mvc:interceptor>
 		
