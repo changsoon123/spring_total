@@ -43,7 +43,10 @@
                             <c:forEach var="vo" items="${boardList}">
                             	<tr>
                             	<td>${vo.bno}</td>
-                            	<td><a href="${pageContext.request.contextPath}/freeBoard/content/${vo.bno}?pageNum=${pc.paging.pageNum}&cpp=${pc.paging.cpp}&keyword=${pc.paging.keyword}&condition=${pc.paging.condition}">${vo.title}</a></td>
+                            	<td><a href="${pageContext.request.contextPath}/freeBoard/content/${vo.bno}?pageNum=${pc.paging.pageNum}&cpp=${pc.paging.cpp}&keyword=${pc.paging.keyword}&condition=${pc.paging.condition}">${vo.title}</a>
+                            	&nbsp;
+                            	<strong>[${vo.replyCnt}]</strong>
+                            	</td>
                             	<td>${vo.writer}</td>
                             	<td>
                             	<fmt:parseDate value="${vo.regDate}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDateTime" type="both"/>
@@ -122,7 +125,8 @@
             //위에서 얻은 data-pagenum의 값을 삽입한 후 submit
             document.pageForm.pageNum.value = value;
             document.pageForm.submit();
-
+			
+            
 
         });
 
